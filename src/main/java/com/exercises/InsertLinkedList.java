@@ -62,16 +62,21 @@ public class InsertLinkedList {
 
         current.next = a;
 
-
-
         return head;
     }
 
+    static SinglyLinkedListNode insertNodeAtHead(SinglyLinkedListNode llist, int data) {
+        SinglyLinkedListNode a = new SinglyLinkedListNode(data);
+        if(llist == null) {
+            return a;
+        }
+
+
+        a.next = llist;
+        return a;
+    }
+
     public static void main(String[] args) {
-//        SinglyLinkedList llist = new SinglyLinkedList();
-////        Collections.
-////        for (int i = 0; i < ; i++) {
-////
-////        }
+
     }
 }
