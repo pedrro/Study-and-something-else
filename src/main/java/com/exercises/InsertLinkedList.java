@@ -71,9 +71,26 @@ public class InsertLinkedList {
             return a;
         }
 
-
         a.next = llist;
         return a;
+    }
+// 16 13 7
+    // 1 -> pos 2
+    static SinglyLinkedListNode insertNodeAtPosition(SinglyLinkedListNode head, int data, int position) {
+        SinglyLinkedListNode nodeToBeInserted = new SinglyLinkedListNode(data);
+        SinglyLinkedListNode aux = head;
+        //1 2 3 4 5
+        //
+        int actualPosition = 0;
+        while(actualPosition < position -1)  {
+            aux = aux.next; //13
+            actualPosition++; // 1
+        }
+
+        nodeToBeInserted.next = aux.next;
+        aux.next = nodeToBeInserted;
+
+        return head;
     }
 
     public static void main(String[] args) {
