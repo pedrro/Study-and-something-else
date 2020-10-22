@@ -1,5 +1,8 @@
 package com.jader;
 
+import java.lang.reflect.Field;
+import java.util.Arrays;
+
 public class Atributos {
     private boolean desired_bed_cleanup;
     private boolean has_dry_leaves;
@@ -39,23 +42,18 @@ public class Atributos {
         this.details = details;
     }
 
-    public String toCsv() {
-        return desired_bed_cleanup + ", " +
-                has_dry_leaves + ", " +
-                has_wet_leaves  + ", " +
-                has_fallen_limbs + ", " +
-                has_cut_limbs + ", " +
-                has_rocks + ", " +
-                has_mulch + ", " +
-                has_pine + ", " +
-                has_pet_waste + ", " +
-                has_other + ", " +
-                has_cement + ", " +
-                has_acorns + ", " +
-                has_pine_cones + ", " +
-                other_debris + ", " +
-                last_service + ", " +
-                desired_haulaway + ", " +
-                details;
+    public String toCsv()  {
+        StringBuilder stringBuilder = new StringBuilder();
+        Field[] declaredFields = Atributos.class.getDeclaredFields();
+        for (Field declaredField : declaredFields) {
+            declaredField.setAccessible(true);
+            try {
+                stringBuilder.append(declaredField.get(this)).append(", ");
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return stringBuilder.toString();
     }
 }
