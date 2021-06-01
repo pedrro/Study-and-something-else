@@ -1,44 +1,36 @@
 package com.exercises;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+//TASK: Given a string, find the length of the longest substring without repeating characters.
+// Example Input: s = "abcabcdbb"
+// In this example, you’ll find 4 substrings (or subsets of characters) without any repeating characters. These are “abc”, “abcd”, “b”, “b”. The longest is “abcd”, so the answer is 4.
+// Another example:
+// Example Input: s = "pwwkew"
+// The longest substring is “wke”, so the answer is 3.
 
 public class App {
 
-    public static int diagonalDifference() {
+    public static int lengthOfLongestSubstring(String s) {
+        int length = 0;
+        String temp = "";
+        char[] stringArray = s.toCharArray();
+
         // Write your code here
-        List<List<Integer>> arr = new ArrayList<>();
-        arr.add(Arrays.asList(11, 2, 4));
-        arr.add(Arrays.asList(4, 5, 6));
-        arr.add(Arrays.asList(10, 8, -12));
-
-        int accumulator = 0;
-        ArrayList<Integer> a = new ArrayList<>();
-        ArrayList<Integer> b = new ArrayList<>();
-
-        int i = 0;
-        while (i < arr.size()) {
-            a.add(arr.get(i).get(i));
-            i++;
+        for(int i = 0; i < stringArray.length; i++) {
+            if(!temp.contains(String.valueOf(stringArray[i]))) {
+                temp += stringArray[i];
+            } else {
+                if (length < temp.length()) {
+                    length = temp.length();
+                }
+                temp = String.valueOf(stringArray[i]);
+            }
         }
 
-        int j = 0;
-        while (j < arr.size()) {
-            b.add(arr.get(arr.size() - j - 1).get(j));
-            j++;
-        }
-
-        return Math.abs(sumIntegers(a) - sumIntegers(b));
+        return length == 0 ? s.length() : length;
     }
 
-    private static Integer sumIntegers(ArrayList<Integer> list) {
-        return list.stream()
-                .mapToInt(a -> a)
-                .sum();
-    }
-
-    public static void main(String[] args) {
-        System.out.println(diagonalDifference());
+    public static void main(String[] arg) {
+        int result = lengthOfLongestSubstring("abcd");
+        System.out.println(result);
     }
 }
