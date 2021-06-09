@@ -5,9 +5,54 @@ public class HillsAndValleys {
     static int solution(int[] A) {
         if (sameValues(A)) return 1;
 
-        int hills = identifyHills(A);
-        int valleys = identifyValleys(A);
-        return hills + valleys;
+        int valleys = 0;
+        int hills = 0;
+        for (int i = 0; i < A.length; i++) {
+            if(i == 0 || i == A.length - 1) continue;
+
+            hills += getHills(A, i);
+            valleys += getValleys(A, i);
+        }
+        return valleys + hills;
+    }
+
+    private static int getValleys(int[] A, int i) {
+        int valleys = 0;
+        if(i == 0 || i == A.length - 1) {
+            valleys = 0;
+        };
+
+        if(A[i] < A[i + 1] && A[i] == A[i -1]) {
+            valleys++;
+        }
+        return valleys;
+    }
+
+    private static int getHills(int[] A, int i) {
+        int hills = 0;
+        if (i == 0) {
+            int next = A[i + 1];
+            int current = A[i];
+            if (current > next) {
+                hills++;
+            }
+        } else if (i == A.length - 1) {
+            int prev = A[i - 1];
+            int current = A[i];
+
+            if (current > prev) {
+                hills++;
+            }
+        } else {
+            int prev = A[i - 1];
+            int next = A[i + 1];
+            int current = A[i];
+
+            if (current > prev && current > next) {
+                hills++;
+            }
+        }
+        return hills;
     }
 
     private static boolean sameValues(int[] array) {
@@ -21,48 +66,6 @@ public class HillsAndValleys {
             }
         }
         return value;
-    }
-
-    private static int identifyValleys(int[] a) {
-        int valleys = 0;
-        for (int i = 0; i < a.length; i++) {
-            if(i == 0 || i == a.length - 1) continue;
-            if(a[i] < a[i + 1] && a[i] == a[i-1]){
-                valleys++;
-            }
-        }
-
-        return valleys;
-    }
-
-    private static int identifyHills(int[] a) {
-        int hills = 0;
-        for (int i = 0; i < a.length; i++) {
-            if (i == 0) {
-                int next = a[i + 1];
-                int current = a[i];
-                if (current > next) {
-                    hills++;
-                }
-            } else if (i == a.length - 1) {
-                int prev = a[i - 1];
-                int current = a[i];
-
-                if (current > prev) {
-                    hills++;
-                }
-            } else {
-                int prev = a[i - 1];
-                int next = a[i + 1];
-                int current = a[i];
-
-                if (current > prev && current > next) {
-                    hills++;
-                }
-            }
-
-        }
-        return hills;
     }
 
     public static void main(String[] args) {
