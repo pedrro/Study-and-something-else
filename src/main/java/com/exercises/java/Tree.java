@@ -1,6 +1,7 @@
 package com.exercises.java;
 
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
 
 class Node {
@@ -40,6 +41,33 @@ public class Tree {
             inOrder(root.right);
         }
     }
+
+    public static List<Integer> traverseInOrder(Node root, List<Integer> nodeList) {
+        if(root.left != null) {
+            traverseInOrder(root.left, nodeList);
+        }
+        nodeList.add(root.data);
+
+        if(root.right != null) {
+            traverseInOrder(root.right, nodeList);
+        }
+
+        return nodeList;
+    }
+
+    public static List<Integer> traversePreOrder(Node root, List<Integer> nodeList) {
+        nodeList.add(root.data);
+        if(root.left != null) {
+            traverseInOrder(root.left, nodeList);
+        }
+
+        if(root.right != null) {
+            traverseInOrder(root.right, nodeList);
+        }
+
+        return nodeList;
+    }
+
 
     public static void levelOrder(Node root) {
         Queue<Node> queue = new LinkedList();

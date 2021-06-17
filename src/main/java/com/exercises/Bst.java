@@ -2,6 +2,7 @@ package com.exercises;
 
 import java.math.BigInteger;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
 import java.util.Scanner;
 
@@ -17,6 +18,18 @@ public class Bst {
             if(current.right != null) queue.add(current.right);
         }
 
+    }
+
+    static List<Node> recursive(Queue<Node> queue, List<Node> nodeList) {
+        if(!queue.isEmpty()) {
+            return nodeList;
+        }
+
+        Node n = queue.remove();
+        if(n.left != null) queue.add(n.left);
+        if(n.right != null) queue.add(n.right);
+
+        return recursive(queue, nodeList);
     }
 
 //    public static Node removeDuplicates(Node head) {
